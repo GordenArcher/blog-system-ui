@@ -13,7 +13,7 @@ const NewsLetter = () => {
                             <input type="email" className="w-[259px] border border-gray-500 bg-white text-black rounded outline-none px-4 py-4" placeholder="Your email"/>
                         </div>
 
-                        <button className="w-full px-6 max-md:px-4 py-4 border border-white outline-none text-white rounded-md text-center cursor-pointer whitespace-nowrap">Get-Started</button>
+                        <button className=" px-6 max-md:px-4 py-4 border border-white outline-none text-white rounded-md text-center cursor-pointer whitespace-nowrap">Get-Started</button>
                     </div>
                 </div>
             </div>

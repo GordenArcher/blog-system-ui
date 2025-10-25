@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom"
 import Logo from "../../components/ui/shared/Logo"
 import { Menu, Search } from "lucide-react"
+import useAuthStore from "../../stores/useAuthStore"
 
 const NavBar = () => {
+
+    const { isAuthenticated } = useAuthStore()
 
     return (
         <div className="w-full relative">
@@ -32,7 +35,7 @@ const NavBar = () => {
                                 </li>
 
                                 <li className="px-4 py-2">
-                                    <Link to={"/reach-out"} className="px-6 py-3 rounded duration-150 ease-linear bg-[#7C4EE4] hover:bg-[#7C4EE4]/90 font-normal text-white font-sans text-[16px]">Contact Us</Link>
+                                    <Link to={isAuthenticated ? "/post/write" : "/auth/login"} className="px-6 py-3 rounded duration-150 ease-linear bg-[#7C4EE4] hover:bg-[#7C4EE4]/90 font-normal text-white font-sans text-[16px]">{isAuthenticated ? "Write" : "Login / Register"}</Link>
                                 </li>
                             </ul>
                         </div>

@@ -2,13 +2,10 @@ import OurRecentPost from "../../components/OurRecentPost"
 import PopularPost from "../../components/PopularPost"
 import ReadMoreButton from "../../components/ui/shared/ReadMoreButton"
 import Hero from "../../layout/main/Hero"
-import Footer from "../../layout/shared/Footer"
-import NavBar from "../../layout/shared/NavBar"
 
 const Index = () => {
     return (
-        <div className="w-full h-full relative space-y-8">
-            <NavBar />
+        <div className="relative">
 
             <section className="w-full h-full px-3 py-9 bg-[#7C4EE4]">
                 <Hero />
@@ -51,11 +48,6 @@ const Index = () => {
                     <PopularPost />
                 </section>
             </div>
-
-            <section>
-                <Footer />
-            </section>
-                
         </div>
     )
 }

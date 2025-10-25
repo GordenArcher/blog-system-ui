@@ -1,18 +1,70 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: #fff;
-  color: #242424
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: #fff;
+    color: #242424
 }
 
 @import "tailwindcss";
+
+
+/* In your global CSS or component */
+.markdown-preview img {
+    @apply rounded-md my-3 max-w-full h-auto;
+}
+
+.markdown-preview video,
+.markdown-preview audio {
+    @apply rounded-md my-3 max-w-full;
+}
+
+.markdown-preview iframe {
+    @apply rounded-md my-3 w-full h-96;
+}
+
+.markdown-preview code {
+    @apply bg-gray-100 px-2 py-1 rounded text-sm;
+}
+
+.markdown-preview pre {
+    @apply bg-gray-900 text-white p-4 rounded-lg overflow-x-auto;
+}
+
+/* .prose video,
+.prose audio,
+.prose iframe {
+    width: 100%;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+} */
+
+.prose img,
+.prose video {
+    display: block;
+    margin: 1rem auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+}
+
+.prose img[width],
+.prose video[width] {
+    max-width: none;
+}
+
+.prose iframe {
+    width: 100%;
+    border-radius: 0.5rem;
+    aspect-ratio: 16/9;
+}
