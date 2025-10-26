@@ -26,17 +26,17 @@ const PostCard: React.FC<PostCardProps> = ({ post })  => {
     return (
         <div className="w-full relative">
             <div className="relative flex flex-col gap-2.5 p-2">
-                {/* Image */}
                 <div className="w-full h-[258px] bg-[#CCE9FF] rounded-2xl relative overflow-hidden">
                     {post?.cover_image ? (
                         <img
-                        src={post.cover_image}
-                        alt={post.title}
-                        className="w-full h-full object-cover rounded-2xl"
+                            src={`http://localhost:8000${post.cover_image}`}
+                            alt={post.title}
+                            className="w-full h-full rounded-2xl"
+                            draggable={false}
                         />
                     ) : (
                         <div className="w-full h-full flex items-center justify-center text-gray-400">
-                        No Image
+                            No Image
                         </div>
                     )}
                 </div>

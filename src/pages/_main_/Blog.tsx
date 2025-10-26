@@ -15,7 +15,7 @@ const Blog = () => {
 
                     <div className="p-1">
                         <div className="w-full grid grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1 gap-2.5">
-                            {posts.map((post: Post) => <PostCard key={post} post={post} />)}
+                            {posts?.map((post: Post) => <PostCard key={post} post={post} />)}
                         </div>
                     </div>
                 </div>

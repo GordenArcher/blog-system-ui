@@ -33,9 +33,15 @@ export interface PostData {
     excerpt: string;
     category: string;
     tags: string[];
-    cover_image: string;
+    cover_image: File | null;
     is_published: boolean;
     seo_title: string;
     seo_description: string;
     canonical_url: string;
+}
+
+
+export interface Tag {
+    id: string;
+    name: string;
 }

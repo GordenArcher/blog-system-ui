@@ -1,7 +1,10 @@
+import { usePostStore } from "../stores/usePostStore"
 import PostCard from "./ui/shared/PostCard"
 import ReadMoreButton from "./ui/shared/ReadMoreButton"
 
 const PopularPost = () => {
+
+    const { posts } = usePostStore()
 
     return (
         <section className="w-full relative">
@@ -16,7 +19,7 @@ const PopularPost = () => {
 
                 <div className="py-2">
                     <div className="w-full grid grid-cols-3 max-md:grid-cols-1 max-lg:grid-cols-2 gap-2.5">
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((post) => <PostCard />)}
+                        {posts.map((post) => <PostCard key={post.id} post={post}  />)}
                     </div>
                     
                 </div>

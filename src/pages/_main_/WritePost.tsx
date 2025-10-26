@@ -2,34 +2,15 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Upload, Image, Video, Tag, Eye, EyeOff, Save, X, Loader } from 'lucide-react';
 import MarkdownPreview from '../../layout/shared/MarkDownPreview';
 import type { PostData } from '../../types/shared';
-import { axiosClient } from '../../utils/axiosClient';
 import { Post } from '../../services/api/api';
 import { toast } from 'react-toastify';
-
-interface Category {
-    id: string;
-    name: string;
-    slug: string;
-}
-
-interface Tag {
-    id: string;
-    name: string;
-}
+import useCategories from '../../hooks/useCategory';
 
 
 
 const WritePost: React.FC = () => {
-    const categories: Category[] = [
-        { id: '1', name: 'Technology', slug: 'technology' },
-        { id: '2', name: 'Programming', slug: 'programming' },
-        { id: '3', name: 'Web Development', slug: 'web-development' },
-        { id: '4', name: 'Mobile Development', slug: 'mobile-development' },
-        { id: '5', name: 'Data Science', slug: 'data-science' },
-        { id: '6', name: 'Artificial Intelligence', slug: 'ai' },
-        { id: '7', name: 'DevOps', slug: 'devops' },
-        { id: '8', name: 'UI/UX Design', slug: 'ui-ux' },
-    ];
+
+    const { categories, loading } = useCategories()
 
     const [postData, setPostData] = useState<PostData>({
         title: '',
@@ -51,7 +32,7 @@ const WritePost: React.FC = () => {
         excerpt: '',
         category: '',
         tags: [],
-        cover_image: '',
+        cover_image: null,
         is_published: false,
         seo_title: '',
         seo_description: '',
@@ -64,6 +45,7 @@ const WritePost: React.FC = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const videoInputRef = useRef<HTMLInputElement>(null);
     const [isSaving, setisSaving] = useState<boolean>(false);
+    const [previewCoverImage, setPreviewCoverImage] = useState<string | null>(null);
 
     useEffect(() => {
         if (!postData.seo_title && postData.title) {
@@ -119,7 +101,6 @@ const WritePost: React.FC = () => {
         
             const mockImageUrl = URL.createObjectURL(file);
         
-        // Insert markdown image syntax at cursor position or append
             const markdownImage = `![${file.name}](${mockImageUrl})`;
             setPostData(prev => ({
                 ...prev,
@@ -128,7 +109,7 @@ const WritePost: React.FC = () => {
 
         } catch (error) {
             console.error('Error uploading image:', error);
-            alert('Error uploading image');
+            toast.error('Error uploading image');
         } finally {
             setUploading(false);
 
@@ -143,7 +124,7 @@ const WritePost: React.FC = () => {
         if (!file) return;
 
         if (!file.type.startsWith('video/')) {
-            alert('Please select a video file');
+            toast.error('Please select a video file');
             return;
         }
 
@@ -162,7 +143,7 @@ const WritePost: React.FC = () => {
             }));
         } catch (error) {
             console.error('Error uploading video:', error);
-            alert('Error uploading video');
+            toast.error('Error uploading video');
         } finally {
             setUploading(false);
 
@@ -185,8 +166,8 @@ const WritePost: React.FC = () => {
         
         try {
         
-            const mockImageUrl = URL.createObjectURL(file);
-            setPostData(prev => ({ ...prev, cover_image: mockImageUrl }));
+            setPostData(prev => ({ ...prev, cover_image: file }));
+            setPreviewCoverImage(URL.createObjectURL(file))
         } catch (error) {
             console.error('Error uploading cover image:', error);
             alert('Error uploading cover image');
@@ -217,10 +198,17 @@ const WritePost: React.FC = () => {
                 console.log('Saved post:', response);
             }
 
-        } catch (error: any) {
-            toast.error(error?.response?.message || 'Error saving post:', error);
+        } catch (err: unknown) {
+            if (err && typeof err === 'object' && 'response' in err) {
+                const e = err as { response?: { data?: { message?: string } } };
+                toast.error(e.response?.data?.message || 'Error saving post');
+            } else {
+                toast.error('Error saving post');
+            }
+
             throw new Error('Failed to save post');
-        }finally{
+        }
+finally{
             setisSaving(false)
         }
     };
@@ -389,9 +377,9 @@ const WritePost: React.FC = () => {
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm text-gray-700">Status</span>
 
-                                    <label className="relative inline-flex items-center cursor-pointer">
+                                    <label htmlFor='check' className="relative inline-flex items-center cursor-pointer">
                                         <input
-                                            
+                                            id='check'
                                             type="checkbox"
                                             checked={postData.is_published}
                                             onChange={(e) => handleInputChange('is_published', e.target.checked)}
@@ -415,15 +403,17 @@ const WritePost: React.FC = () => {
                         <div className="bg-white rounded-lg border border-gray-200 p-6">
                             <h3 className="text-lg font-semibold text-gray-900 mb-4">Cover Image</h3>
 
-                            {postData.cover_image ? (
+                            {previewCoverImage ? (
                                 <div className="space-y-3">
                                     <img
-                                        src={postData.cover_image}
+                                        src={previewCoverImage}
                                         alt="Cover"
                                         className="w-full h-32 object-cover rounded-lg"
                                     />
 
                                     <button
+                                        title='remove'
+                                        type='button'
                                         onClick={() => handleInputChange('cover_image', '')}
                                         className="w-full cursor-pointer text-red-600 text-sm hover:text-red-700"
                                     >
@@ -460,6 +450,7 @@ const WritePost: React.FC = () => {
                                         {category.name}
                                     </option>
                                 ))}
+                                {loading && <Loader className='animate-spin' />}
                             </select>
                         </div>
 

@@ -16,7 +16,7 @@ interface AuthState {
 
     fetchAuth: () => Promise<void>;
     fetchUser: () => Promise<void>;
-    // fetchSocials: () => Promise<void>;
+    
 }
 
 const useAuthStore = create<AuthState>((set) => ({
@@ -54,7 +54,7 @@ const useAuthStore = create<AuthState>((set) => ({
         } finally {
             set({ isGettingUser: false });
         }
-    },
+    }
 
 }));
 
@@ -64,11 +64,3 @@ export default useAuthStore
 
 
 
-    // fetchSocials: async () => {
-    //     try {
-    //         const res = await get_socials();
-    //         if (res) set({ socials: res });
-    //     } catch (err) {
-    //         console.error("User socials failed", err);
-    //     }
-    // },

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Calendar, Eye, Heart, User, ArrowLeft, Clock } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
 import { usePostStore } from '../../../stores/usePostStore';
 import MarkdownPreview from '../../../layout/shared/MarkDownPreview';
 
@@ -70,30 +69,24 @@ const BlogDetails = () => {
                 </div>
             </div>
 
-            {/* Main Content */}
             <article className="max-w-4xl mx-auto px-4 py-12">
-                {/* Category Badge */}
                 <div className="mb-6">
                     <span className="inline-block px-4 py-1.5 bg-[#7C4EE4]/10 text-[#7C4EE4] rounded-full text-sm font-medium">
                         {Slugposts?.category?.name}
                     </span>
                 </div>
 
-                {/* Title */}
                 <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
                     {Slugposts?.title}
                 </h1>
 
-                {/* Excerpt */}
-                {Slugposts.excerpt && (
-                    <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                        {Slugposts?.excerpt}
-                    </p>
+                {Slugposts.cover_image && (
+                    <div className='p-3'>
+                        <img src={Slugposts.cover_image} alt="" />
+                    </div>
                 )}
 
-                {/* Meta Information */}
                 <div className="flex flex-wrap items-center gap-6 mb-8 pb-8 border-b">
-                    {/* Author */}
                     <div className="flex items-center gap-3">
                         {Slugposts?.author?.profile_image ? (
                             <img 
@@ -165,7 +158,6 @@ const BlogDetails = () => {
                     </div>
                 )}
 
-                {/* Like Button */}
                 <div className="flex items-center gap-4 pt-8 border-t">
                     <button
                         onClick={handleLike}
