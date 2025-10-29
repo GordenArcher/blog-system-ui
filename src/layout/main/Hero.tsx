@@ -108,9 +108,9 @@ const Hero = () => {
                         
                         <div className="space-y-10 max-md:space-y-4 py-8 relative">
                             <div className="py-2">
-                                <h1 className="text-6xl max-lg:text-5xl wrap-break-word leading-normal text-white font-extrabold">
+                                 <Link to={`/blog/details/read/${featuredPost.slug}`} className="text-6xl max-lg:text-5xl wrap-break-word leading-normal text-white font-extrabold">
                                     {featuredPost.title}
-                                </h1>
+                                </Link>
                             </div>
                             
                             <div className="py-3">
@@ -163,12 +163,11 @@ const Hero = () => {
                         </div>
                     </div>
                     
-                    {/* Cover Image */}
                     <div className="p-2">
                         <Link to={`/blog/details/read/${featuredPost.slug}`}>
                             {featuredPost.cover_image ? (
                                 <div 
-                                    className="w-full h-120 max-md:h-70 rounded overflow-hidden bg-cover bg-center transition-transform hover:scale-105 cursor-pointer"
+                                    className="w-full h-120 max-md:h-70 rounded overflow-hidden bg-cover bg-center transition-transform cursor-pointer"
                                     style={{
                                         backgroundImage: `url(${featuredPost.cover_image.startsWith('http') 
                                             ? featuredPost.cover_image 
@@ -176,7 +175,6 @@ const Hero = () => {
                                         })`
                                     }}
                                 >
-                                    {/* Gradient overlay for better text visibility if needed */}
                                     <div className="w-full h-full bg-linear-to-t from-black/30 to-transparent"></div>
                                 </div>
                             ) : (

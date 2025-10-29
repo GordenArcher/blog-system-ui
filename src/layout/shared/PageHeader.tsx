@@ -1,6 +1,6 @@
 
 interface Props {
-    head: string;
+    head?: string;
     title: string;
     para: string;
 }

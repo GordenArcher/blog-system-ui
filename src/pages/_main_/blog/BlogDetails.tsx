@@ -3,6 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import { Calendar, Eye, Heart, User, ArrowLeft, Clock } from 'lucide-react';
 import { usePostStore } from '../../../stores/usePostStore';
 import MarkdownPreview from '../../../layout/shared/MarkDownPreview';
+import { formatDate } from '../../../utils/formatDate';
+import { calculateReadTime } from '../../../utils/calculateReadTime';
 
 const BlogDetails = () => {
     const { slug } = useParams();
@@ -21,20 +23,6 @@ const BlogDetails = () => {
         // Add your like API call here
     };
 
-    const formatDate = (dateString) => {
-        return new Date(dateString).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-    };
-
-    const calculateReadTime = (content) => {
-        const wordsPerMinute = 200;
-        const wordCount = content?.split(/\s+/).length;
-        const minutes = Math.ceil(wordCount / wordsPerMinute);
-        return `${minutes} min read`;
-    };
 
     if (loading_slug_post) {
         return (
@@ -82,11 +70,11 @@ const BlogDetails = () => {
 
                 {Slugposts.cover_image && (
                     <div className='p-3'>
-                        <img src={Slugposts.cover_image} alt="" />
+                        <img src={Slugposts.cover_image} className='w-full h-100 rounded-xl' alt="" />
                     </div>
                 )}
 
-                <div className="flex flex-wrap items-center gap-6 mb-8 pb-8 border-b">
+                <div className="flex flex-wrap items-center gap-6 mb-8 py-8 border-b">
                     <div className="flex items-center gap-3">
                         {Slugposts?.author?.profile_image ? (
                             <img 
@@ -128,7 +116,7 @@ const BlogDetails = () => {
                     </div>
                 </div>
 
-                {/* Cover Image */}
+                {/* Cover Image
                 {Slugposts.cover_image && (
                     <div className="mb-12 rounded-xl overflow-hidden">
                         <img 
@@ -137,7 +125,7 @@ const BlogDetails = () => {
                             className="w-full h-auto object-cover"
                         />
                     </div>
-                )}
+                )} */}
 
                 {/* Content */}
                 <div className="prose prose-lg max-w-none mb-12">
