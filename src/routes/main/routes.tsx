@@ -9,6 +9,7 @@ import Blog from "../../pages/_main_/Blog"
 import WritePost from "../../pages/_main_/WritePost"
 import BlogDetails from "../../pages/_main_/blog/BlogDetails"
 import useAuthStore from "../../stores/useAuthStore"
+import SearchPage from "../../pages/Search"
 
 const MainRoutes = () => {
     const { isAuthenticated } = useAuthStore()
@@ -19,7 +20,6 @@ const MainRoutes = () => {
             <Routes>
                 {isAuthenticated && (
                     <>
-                        <Route path="/blog/details/read/:slug" element={ <BlogDetails />} />
                         <Route path="/writer/me" element={ <BlogDetails />} />
                     </>
                 )}
@@ -28,6 +28,8 @@ const MainRoutes = () => {
                 <Route path="/about-us" element={ <About />} />
                 <Route path="/reach-out" element={ <Contact />} />
                 <Route path="/post/write" element={ <WritePost />} />
+                <Route path="/search" element={ <SearchPage />} />
+                <Route path="/blog/details/read/:slug" element={ <BlogDetails />} />
                 
                 <Route path="*" element={ <NotFound_ />} />
             </Routes>

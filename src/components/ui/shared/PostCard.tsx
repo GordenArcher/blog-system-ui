@@ -29,7 +29,7 @@ const PostCard: React.FC<PostCardProps> = ({ post })  => {
                 <div className="w-full h-[258px] bg-[#CCE9FF] rounded-2xl relative overflow-hidden">
                     {post?.cover_image ? (
                         <img
-                            src={`http://localhost:8000${post.cover_image}`}
+                            src={`${post.cover_image}`}
                             alt={post.title}
                             className="w-full h-full rounded-2xl"
                             draggable={false}
